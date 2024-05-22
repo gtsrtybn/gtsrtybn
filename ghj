@@ -1,0 +1,30 @@
+
+    # 筛选出前10个频率最高的数据
+    top_10_dict = get_top_k_from_dict_value_1(dict_data, 10)
+    # print(top_10_dict)
+
+    # 绘制搜索关键词柱状图
+    figure_1 = go.Figure(
+        data=[
+            go.Bar(
+                x=[key for key in top_10_dict.keys()],
+                y=[value[0] for value in top_10_dict.values()],
+                name='bar',
+                marker=go.bar.Marker(
+                    color='rgb(55, 83, 109)'
+                )
+            )
+        ],
+        layout=go.Layout(
+            showlegend=False,
+            margin=go.layout.Margin(l=40, r=0, t=40, b=30),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            xaxis=dict(title='关键词'),
+            yaxis=dict(title='次数')
+        )
+    )
+
+
+
+
