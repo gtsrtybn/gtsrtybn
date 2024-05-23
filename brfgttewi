@@ -1,0 +1,25 @@
+const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong']
+
+sounds.forEach(sound => {
+    const btn = document.createElement('button')
+    btn.classList.add('btn')
+
+    btn.innerText = sound
+	// 注册事件 点击按钮就停止所有音效后，播放当前选中的音乐
+    btn.addEventListener('click', () => {
+        stopSongs()
+
+        document.getElementById(sound).play()
+    })
+	// 加进h5渲染页面
+    document.getElementById('buttons').appendChild(btn)
+})
+
+function stopSongs() {
+    sounds.forEach(sound => {
+        const song = document.getElementById(sound)
+
+        song.pause()
+        song.currentTime = 0;
+    })
+}
