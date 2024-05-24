@@ -1,0 +1,16 @@
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { md5 } from 'js-md5'; // 引入
+export default defineComponent({
+  name: 'Test',
+  setup() {
+    // MD5普通加密
+    console.log('md5加密', md5('hello, my name is FuChaoyang'));
+    // MD5加盐加密
+    const salt = 'AbC$123'; // 定义一个随机的盐值
+    console.log('加盐后md5加密', md5('hello, my name is FuChaoyang' + salt));
+    // MD5多次加密
+    console.log('md5多次加密', md5(md5('hello, my name is FuChaoyang')));
+  }
+});
+</script>
