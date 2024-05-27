@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片压缩上传</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="compressAndUpload()">压缩并上传图片</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <script>
+        function compressAndUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('请先选择要上传的图片');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function () {
+                const img = new Image();
+                img.src = reader.result;
+                img.onload = function () {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const maxWidth = 800; // 设置最大宽度为800像素
+                    let width = img.width;
+                    let height = img.height;
+ 
+                    // 判断是否需要缩放
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                    // 设置 canvas 的宽高
+                    canvas.width = width;
+                    canvas.height = height;
+ 
+                    // 将图片绘制到 canvas 上
+                    ctx.drawImage(img, 0, 0, width, height);
+                    // 获取压缩后的图片数据
+                    const compressedData = canvas.toDataURL('image/jpeg', 0.7); // 可调整质量参数
+ 
+                    // 创建一个新的压缩后的 File 对象
+                    const compressedFile = dataURItoBlob(compressedData, file.type);
+                    compressedFile.lastModifiedDate = file.lastModifiedDate;
+                    compressedFile.name = file.name;
+ 
+                    // 上传压缩后的图片文件
+                    uploadImage(compressedFile);
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+ 
+        function dataURItoBlob(dataURI, mimeType) {
+            const binary = atob(dataURI.split(',')[1]);
+            const array = [];
+            for (let i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: mimeType });
+        }
+ 
+        function uploadImage(compressedFile) {
+            const formData = new FormData();
+            formData.append('image', compressedFile);
+ 
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('图片上传成功');
+                } else {
+                    console.error('图片上传失败');
+                }
+            })
+            .catch(error => {
+                console.error('发生错误:', error);
+            });
+        }
+    </script>
+</body>
+</html>
