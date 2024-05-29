@@ -1,0 +1,16 @@
+// 创建一个包含回调函数的 URL
+const url = 'http://juejin.com/xxx?callback=handleCallback';
+ 
+// 创建一个 script 标签
+const script = document.createElement('script');
+ 
+// 设置 script 的 URL
+script.src = url;
+ 
+// 将 script 添加到页面中
+document.body.appendChild(script);
+ 
+// 定义回调函数，处理从服务器返回的数据
+function handleCallback(res) {
+    console.log(res);
+}
