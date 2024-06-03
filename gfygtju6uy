@@ -1,0 +1,45 @@
+import requests
+import time
+import sys
+import urllib.parse
+from loguru import logger
+from common.HashExtAttack import HashExtAttack
+
+
+hash_ext_attack = HashExtAttack()
+
+logger.remove()
+
+logger.add(sys.stderr, level="INFO")
+
+  
+
+initial_url = ''
+
+  
+
+while True:
+
+    for i in range(7,50):
+
+        new_text_part, new_hash = hash_ext_attack.run('', '28aefeaefd98fd5a4b25cc913cd06484', '', i)
+
+        quote = urllib.parse.quote(new_text_part, safe='&=')
+
+        new_text_part2, new_hash2 = hash_ext_attack.run('', '28aefeaefd98fd5a4b25cc913cd06484', str(int(time.time())+1), i)
+
+        url = f"{initial_url}/?md5={new_hash2}&value={quote}"
+
+        response = requests.get(url=url)
+
+        print(f"Time:+{int(time.time())}")
+
+        text = response.text
+
+        print(f"Response: {text}")
+
+        if "{" in response.text:
+
+            print(f"found Flag: {response.text}")
+
+            break
