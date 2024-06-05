@@ -1,0 +1,11 @@
+ /**
+     * 删除电子书
+     * @param id 电子书id
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public CommonResp delete(@PathVariable("id") Long id){
+        boolean res = ebookService.removeById(id);
+        String message = Boolean.TRUE.equals(res) ? "删除成功":"删除失败";
+        return new CommonResp<>(true,message,null);
+    }
