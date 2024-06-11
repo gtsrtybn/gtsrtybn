@@ -1,0 +1,20 @@
+import junit.framework.TestCase;
+import org.example.pojo.Student;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+ 
+ 
+@SpringBootTest
+public class AppTest extends TestCase {
+ 
+    @Autowired
+    Student student;
+    @Test
+    public void test1(){
+        student.setName("Tom");
+        student.setAge(21);
+        student.setGender("男");
+        System.out.println(student);
+    }
+}
