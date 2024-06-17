@@ -1,0 +1,36 @@
+<!-- 我的订单入口 -->
+<view class="myOrder-menu">
+  <view class="order-title">
+    <view class="leftTitle">我的订单</view>
+    <view class="rightSeeMore" bindtap="goToOrder" data-id="0">
+      <image src="{{imgUrl}}/upload/20220608/black-jt.png" lazy-load="true"></image>
+      <text style="float:right;padding-right:10rpx;">查看更多</text>
+    </view>
+  </view>
+  <view class="orderMenu-img">
+    <view class="ordermenu-detail" bindtap="goToOrder" data-id="1">
+      <image src="{{imgUrl}}/upload/20220608/dfk.png" lazy-load="true"></image>
+      <view class="num-mark" wx:if="{{toBePaid>0}}">{{toBePaid}}</view>
+      <view class="order-text-staus">待付款</view>
+    </view>
+    <view class="ordermenu-detail" bindtap="goToOrder" data-id="2">
+      <image src="{{imgUrl}}/upload/20220608/dfh.png" lazy-load="true"></image>
+      <view class="num-mark" wx:if="{{toBeDelivered>0}}">{{toBeDelivered}}</view>
+      <view class="order-text-staus">待发货</view>
+    </view>
+    <view class="ordermenu-detail" bindtap="goToOrder" data-id="3">
+      <image src="{{imgUrl}}/upload/20220608/dsh.png" lazy-load="true"></image>
+      <view class="num-mark" wx:if="{{toBeReceived>0}}">{{toBeReceived}}</view>
+      <view class="order-text-staus">待收货</view>
+    </view>
+    <view class="ordermenu-detail" bindtap="goReplyList">
+      <image src="{{imgUrl}}/upload/20220608/dpj.png" lazy-load="true"></image>
+      <view class="num-mark" wx:if="{{toBeReply>0}}">{{toBeReply}}</view>
+      <view class="order-text-staus">评价</view>
+    </view>
+    <view class="ordermenu-detail" bindtap="afterSale">
+      <image src="{{imgUrl}}/upload/20220608/dtk.png" lazy-load="true"></image>
+      <view class="num-mark" wx:if="{{cancel>0}}">{{cancel}}</view>
+      <view class="order-text-staus">售后/退款</view>
+    </view>
+  </view>
