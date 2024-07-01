@@ -1,0 +1,13 @@
+import gc
+ 
+# 创建一个对象
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+ 
+# 创建对象并删除引用
+obj = MyClass(10)
+del obj
+ 
+# 强制进行垃圾回收
+gc.collect()
